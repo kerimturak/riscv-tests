@@ -4,10 +4,10 @@
 # Yunsup Lee (yunsup@cs.berkeley.edu)
 #
 
-XLEN ?= 64
+XLEN ?= 32
 
 ifeq ($(XLEN),32)
-ABI ?= ilp32d
+ABI ?= ilp32
 endif
 ifeq ($(XLEN),64)
 ABI ?= lp64d
@@ -32,17 +32,17 @@ bmarks = \
 	vvadd \
 	memcpy \
 	multiply \
-	mm \
 	dhrystone \
 	spmv \
-	mt-vvadd \
-	mt-matmul \
-	mt-memcpy \
 	pmp \
-	vec-memcpy \
-	vec-daxpy \
-	vec-sgemm \
-	vec-strcmp \
+	#vec-memcpy \
+	#vec-daxpy \
+	#vec-sgemm \
+	#vec-strcmp \
+	#mt-memcpy \
+	#mt-matmul \
+	#mt-vvadd \
+	#mm \
 
 #--------------------------------------------------------------------
 # Build rules
@@ -50,7 +50,7 @@ bmarks = \
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
-RISCV_GCC_OPTS ?= -DPREALLOCATE=1 -mcmodel=medany -static -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf -fno-tree-loop-distribute-patterns -Wno-implicit-int -Wno-implicit-function-declaration -march=rv$(XLEN)gcv -mabi=$(ABI)
+RISCV_GCC_OPTS ?= -DPREALLOCATE=1 -mcmodel=medany -static -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf -fno-tree-loop-distribute-patterns -Wno-implicit-int -Wno-implicit-function-declaration -march=rv$(XLEN)imc_zicsr -mabi=$(ABI)
 RISCV_LINK ?= $(RISCV_GCC) -T $(src_dir)/common/test.ld $(incs)
 RISCV_LINK_OPTS ?= -static -nostdlib -nostartfiles -lm -lgcc -T $(src_dir)/common/test.ld
 RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data
