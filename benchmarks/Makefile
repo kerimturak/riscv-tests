@@ -28,13 +28,13 @@ bmarks = \
 	median \
 	qsort \
 	rsort \
-	towers \
-	vvadd \
-	memcpy \
-	multiply \
-	dhrystone \
-	spmv \
-	pmp \
+	#towers \
+	#vvadd \
+	#memcpy \
+	#multiply \
+	#dhrystone \
+	#spmv \
+	#pmp \
 	#vec-memcpy \
 	#vec-daxpy \
 	#vec-sgemm \
