@@ -46,7 +46,7 @@ define compile_template
 $$($(1)_p_tests): $(1)-p-%: $(1)/%.S
 	$$(RISCV_GCC) $(2) $$(RISCV_GCC_OPTS) -I$(src_dir)/../env/p -I$(src_dir)/macros/scalar -T$(src_dir)/../env/p/link.ld $$< -o $$@
 	$$(RISCV_OBJCOPY) $$@ -O binary $$@.bin
-	python3 get_static_hex.py -b $(BLOCK_BYTES) $$@.bin > $$@.hex
+	python3 ../../../sw/get_static_hex.py -b $(BLOCK_BYTES) $$@.bin > $$@.hex
 $(1)_tests += $$($(1)_p_tests)
 
 $(1)_tests_dump = $$(addsuffix .dump, $$($(1)_tests))
